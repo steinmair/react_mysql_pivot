@@ -2,15 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import App3d from "./Utilities/Apps/App3d";
-import App3c from "./Utilities/Apps/App3c";
+// import App3d from "./Utilities/Apps/App3d";
+// import App3c from "./Utilities/Apps/App3c";
+import App6a from "./Utilities/Apps/App6a";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App3d surname='Poms'firstname='Florian'/>
-    <App3d surname='Franz'firstname='Ferdinand'/>
-    <App3c/>
+    <App6a/>
   </React.StrictMode>
 
 );
