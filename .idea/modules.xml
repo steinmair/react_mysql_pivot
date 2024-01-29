@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/schoolappreact.iml" filepath="$PROJECT_DIR$/schoolappreact.iml" />
+      <module fileurl="file://$PROJECT_DIR$/schoolreact.iml" filepath="$PROJECT_DIR$/schoolreact.iml" />
     </modules>
   </component>
 </project>

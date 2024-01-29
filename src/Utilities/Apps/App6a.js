@@ -57,3 +57,6 @@ const inc = () =>
 }
 
 export default App6a;
+
+// use state mit [] Klammern => Array oder Liste
+// use state mit {} Klammern => Objekt (zB json)

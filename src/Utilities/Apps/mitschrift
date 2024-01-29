@@ -1,0 +1,11 @@
+// use state mit [] Klammern => Array oder Liste
+// use state mit {} Klammern => Objekt (zB json)
+// Daten müssen in states gespeichert werden (wie z.B Liste der Teacher)
+// wir manipulieren diesen state und diese werden dann angezeigt
+// Mit einem HOOK können wir Änderungen mitloggen
+
+Hauptproblem beim fetch ist, dass der Datenzugriff asynchron ist.
+Asynchron: Man greift auf die Daten zu und bekommt sie irgendwann zurück
+
+- Wenn man Aufruf macht, kann man nicht sagen wann es weiter geht(Code wird nicht von oben nach unten gelesen, sondern asynchron)
+- Wenn die Seite aufgerufen wird, werden die Daten geladen
