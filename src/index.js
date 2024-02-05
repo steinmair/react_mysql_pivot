@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-// import App3d from "./Utilities/Apps/App3d";
-// import App3c from "./Utilities/Apps/App3c";
-//import App6a from "./Utilities/Apps/App6a";
 import TeacherMain from "./Teacher/TeacherMain";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

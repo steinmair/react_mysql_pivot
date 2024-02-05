@@ -9,3 +9,8 @@ Asynchron: Man greift auf die Daten zu und bekommt sie irgendwann zurück
 
 - Wenn man Aufruf macht, kann man nicht sagen wann es weiter geht(Code wird nicht von oben nach unten gelesen, sondern asynchron)
 - Wenn die Seite aufgerufen wird, werden die Daten geladen
+
+
+searchCriteria muss als Object angelegt werden
+    im useState sind die Suchkriterien verwaltet
+    Eingabefeld (formControl) ändert die Suchkriterien
