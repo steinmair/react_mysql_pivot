@@ -1,7 +1,8 @@
 import teacher from "./Teacher";
-import React,{useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Col, Container, Row, Form} from "react-bootstrap";
-const TeacherSingle = () => {
+
+const TeacherSingle = (props) => {
 
 
     const update = () => {
@@ -17,6 +18,12 @@ const TeacherSingle = () => {
     }
 
     const [teacher, setTeacher] = useState({});
+
+    useEffect(() => {
+        if (props.teacher){
+            setTeacher(props.teacher)
+        }
+    }, [props])
 
     return (
         <Container fluid>
@@ -39,8 +46,7 @@ const TeacherSingle = () => {
                     <Form.Control type="text" placeholder="Enter surname" name="surname" value={teacher.surname}
                                   onChange={update}/>
                 </Col>
-            </Row>
-            <Row>
+
                 <Col sm="2">
                     <Form.Label htmlfor="firstname">Firstname</Form.Label>
                 </Col>
@@ -48,8 +54,7 @@ const TeacherSingle = () => {
                     <Form.Control type="text" placeholder="Enter firstname" name="firstname" value={teacher.firstname}
                                   onChange={update}/>
                 </Col>
-            </Row>
-            <Row>
+
                 <Col sm="2">
                     <Form.Label htmlfor="title">Title</Form.Label>
                 </Col>
@@ -57,8 +62,7 @@ const TeacherSingle = () => {
                     <Form.Control type="text" placeholder="Enter title" name="title" value={teacher.title}
                                   onChange={update}/>
                 </Col>
-            </Row>
-            <Row>
+
                 <Col sm="2">
                     <Form.Label htmlfor="sex">Sex</Form.Label>
                 </Col>
@@ -66,8 +70,8 @@ const TeacherSingle = () => {
                     <Form.Control type="text" placeholder="Enter sex" name="sex" value={teacher.sex}
                                   onChange={update}/>
                 </Col>
-            </Row>
-            <Row>
+
+
                 <Col sm="2">
                     <Form.Label htmlfor="phone">Phone</Form.Label>
                 </Col>
