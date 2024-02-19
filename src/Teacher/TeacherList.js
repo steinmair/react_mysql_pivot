@@ -57,7 +57,7 @@ return (
                                 teacher.firstname.includes(searchCriteria.firstname)     &&
                                 teacher.shortName.includes(searchCriteria.shortName)     &&
                                  teacher.sex.includes(searchCriteria.sex))
-                .map(teacher => <Teacher teacher={teacher}/>)}
+                .map(teacher => <Teacher edit ={props.edit} teacher={teacher}/>)}
 
         </>
     )

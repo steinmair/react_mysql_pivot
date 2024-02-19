@@ -14,7 +14,7 @@ const Teacher = (props) => {
             <Col>{teacher.shortName}</Col>
             <Col>{teacher.sex}</Col>
             <Col className="mb-1">
-                <Button variant={"success"} className="me-1" >Edit</Button>
+                <Button variant={"success"} onClick={() => props.edit(teacher.teacherId)} active >Edit</Button>
                 <Button variant={"danger"}>Delete</Button></Col>
         </Row>
 

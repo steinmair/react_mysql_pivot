@@ -58,6 +58,24 @@ const TeacherSingle = () => {
                                   onChange={update}/>
                 </Col>
             </Row>
+            <Row>
+                <Col sm="2">
+                    <Form.Label htmlfor="sex">Sex</Form.Label>
+                </Col>
+                <Col sm="4">
+                    <Form.Control type="text" placeholder="Enter sex" name="sex" value={teacher.sex}
+                                  onChange={update}/>
+                </Col>
+            </Row>
+            <Row>
+                <Col sm="2">
+                    <Form.Label htmlfor="phone">Phone</Form.Label>
+                </Col>
+                <Col sm="4">
+                    <Form.Control type="text" placeholder="Enter phone" name="phone" value={teacher.contactphone}
+                                  onChange={update}/>
+                </Col>
+            </Row>
         </Container>
     )
 
