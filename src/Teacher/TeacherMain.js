@@ -1,11 +1,11 @@
 import '../App.css';
 import {useEffect, useState} from "react";
-import TeacherDataservice from "../Services/TeacherDataService";
-import Misc from "../Utilities/Apps/Misc";
+import TeacherDataService from "../Services/TeacherDataService";
+import Misc from "../Utilities/Misc";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import TeacherList from "./TeacherList";
 import TeacherSingle from "./TeacherSingle";
-import teacher from "./Teacher";
+
 
 
 const TeachersList = () => {
@@ -30,7 +30,7 @@ const TeachersList = () => {
 
     const load = async () => {
 
-        TeacherDataservice.getAll()
+        TeacherDataService.getAll()
             .then(response => {
                 setTeachers(response.data);
                 setLoadState({state: Misc.LoadState.Show});
@@ -39,6 +39,8 @@ const TeachersList = () => {
                 state: Misc.LoadState.Error,
                 error: error.message}))
     };
+
+
     const add = () =>{
         if (mode === Misc.LoadCrudState.Blank)
             setMode(Misc.LoadCrudState.Add);
@@ -46,15 +48,30 @@ const TeachersList = () => {
             setMode(Misc.LoadCrudState.Blank)
 
     }
-    const edit = (teacherId) =>{
 
-        console.log("Edit TeacherId: "+teacherId)
-
+    const edit = (teacherId) => {
         let teacher = teachers.find(t => t.teacherId === teacherId);
         setCurrentTeacher(teacher);
         setMode(Misc.LoadCrudState.Edit);
-
     }
+
+    const save = async (teacher) => {
+        let response = true;
+        console.log("save");
+        //insert (create)
+        if(teacher.teacherId === '') {
+            response = await TeacherDataService.create(teacher);
+            const teacherNew = response.data;
+            setTeachers([...teachers,teacherNew]);  //das Teacher-Array wird durch den Spread-Operator (...) in einzelne Teacher-Objecte aufgespalten
+        }
+        //update
+        else {
+            response = await TeacherDataService.update(teacher);
+            const teacherNew = response.data;
+            setTeachers(teachers.map(t => (t.teacherId === teacherNew.teacherId ? teacherNew : t)));
+        }
+    }
+
 
     //Layout
     return (
@@ -62,33 +79,38 @@ const TeachersList = () => {
             {loadState.state === Misc.LoadState.Load && <Misc.Loading page="Teacher"/>}
             {loadState.state === Misc.LoadState.Error && <Misc.Error message={loadState.error}/>}
             {loadState.state === Misc.LoadState.Show &&
-                <Container fluid>
-                    <Row>
-                        <Col>
-                            <h3>Lehrer/innen</h3>
-                        </Col>
-                        <Col lg="1">
-                            <Button size="sm" variant="success" onClick={add} active>
-                                Add
-                            </Button>
-                        </Col>
-                        <Col>
-                            {teachers.length}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <TeacherList teachers={teachers} edit={edit}/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            {mode===Misc.LoadCrudState.Blank &&<></>}
-                            {mode===Misc.LoadCrudState.Add && <TeacherSingle/>}
-                            {mode===Misc.LoadCrudState.Edit && <TeacherSingle teacher={currentTeacher}/>}
-                        </Col>
-                    </Row>
-                </Container>}
+            <Container fluid>
+                <Row className="mt-3">
+                    <Col lg="1">
+                        <Button size="sm-1" variant="success" onClick={add} active>
+                            Add
+                        </Button>
+                    </Col>
+                </Row>
+                <Row className="mt-3">
+                    <Col>
+                        <h3>Lehrer/innen</h3>
+                    </Col>
+                </Row>
+                <hr/>
+                <Row>
+                    <Col>
+                        Anzahl der Lehrer/innen: {teachers.length}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <TeacherList teachers={teachers} edit={edit}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {mode===Misc.LoadCrudState.Blank &&<></>}
+                        {mode===Misc.LoadCrudState.Add && <TeacherSingle save={save}/>}
+                        {mode===Misc.LoadCrudState.Edit && <TeacherSingle save={save} teacher={currentTeacher}/>}
+                    </Col>
+                </Row>
+            </Container>}
 
         </>
     );

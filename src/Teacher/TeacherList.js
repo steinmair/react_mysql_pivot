@@ -11,13 +11,13 @@ const TeacherList = (props) => {
         const {name, value} = event.target;
         console.log(event)
         setSearchCriteria({...searchCriteria, [name]: value})
-    console.log(searchCriteria)
+        console.log(searchCriteria)
     }
 
 
-return (
+    return (
         <>
-           <Row>
+            <Row className="mb-3">
                 <Col></Col>
                 <Col>
                     <Form.Control type="text" placeholder="Enter search criteria" name="surname"
@@ -30,7 +30,7 @@ return (
                     </Form.Control>
                 </Col>
                 <Col>
-                    <Form.Control type="text" placeholder="Enter search criteria xxx" name="shortName"
+                    <Form.Control type="text" placeholder="Enter search criteria" name="shortName"
                                   value={searchCriteria.shortName} onChange={updateFilter} size="sm">
                     </Form.Control>
                 </Col>
@@ -41,7 +41,8 @@ return (
                 </Col>
                 <Col></Col>
             </Row>
-            <Row>
+            <hr/>
+            <Row className="mb-3">
                 <Col>TeacherId</Col>
                 <Col>Surname</Col>
                 <Col>Firstname</Col>
@@ -54,10 +55,10 @@ return (
             {/*    teacher={teacher}/>)}*/}
 
             {teachers.filter(teacher => teacher.surname.includes(searchCriteria.surname) &&
-                                teacher.firstname.includes(searchCriteria.firstname)     &&
-                                teacher.shortName.includes(searchCriteria.shortName)     &&
-                                 teacher.sex.includes(searchCriteria.sex))
-                .map(teacher => <Teacher edit ={props.edit} teacher={teacher}/>)}
+                teacher.firstname.includes(searchCriteria.firstname)     &&
+                teacher.shortName.includes(searchCriteria.shortName)     &&
+                teacher.sex.includes(searchCriteria.sex))
+                .map(teacher => <Teacher edit={props.edit} teacher={teacher}/>)}
 
         </>
     )
