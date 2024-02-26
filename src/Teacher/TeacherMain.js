@@ -1,7 +1,7 @@
 import '../App.css';
 import {useEffect, useState} from "react";
 import TeacherDataService from "../Services/TeacherDataService";
-import Misc from "../Utilities/Misc";
+import Misc from "../Utilities/Apps/Misc";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import TeacherList from "./TeacherList";
 import TeacherSingle from "./TeacherSingle";
@@ -16,6 +16,7 @@ const TeachersList = () => {
     const [teachers, setTeachers] = useState([]);
     const [mode, setMode] = useState(Misc.cBlank);
     const [currentTeacher, setCurrentTeacher] = useState({});
+    const [crudState,setCrudState] = useState({state: Misc.LoadCrudState.Blank, message: ''});
 
     //Business Logic
     //lade die Liste der Teacher
@@ -72,6 +73,18 @@ const TeachersList = () => {
         }
     }
 
+    const deleteF = async (teacherId) => {
+
+        try {
+            await TeacherDataService.remove(teacherId);
+            setTeachers(teachers.filter(teacher => teacher.teacherId !== teacherId));
+            setMode(Misc.cBlank);
+            setCrudState({state: Misc.LoadCrudState.Delete,message: Misc.getTimeMessage("Successfully deleted")})
+        } catch (e){
+            setCrudState({state: Misc.LoadCrudState.Error, message: e.response.data});
+        }
+
+    }
 
     //Layout
     return (
@@ -100,7 +113,9 @@ const TeachersList = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <TeacherList teachers={teachers} edit={edit}/>
+                        <TeacherList teachers={teachers}
+                                     delete={deleteF}
+                                     edit={edit}/>
                     </Col>
                 </Row>
                 <Row>

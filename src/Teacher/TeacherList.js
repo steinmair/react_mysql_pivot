@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Col, Row,Form} from "react-bootstrap";
 import Teacher from "./Teacher";
+import Misc from "../Utilities/Apps/Misc";
 
 const TeacherList = (props) => {
     const teachers = props.teachers;
@@ -54,11 +55,16 @@ const TeacherList = (props) => {
             {/*  {teachers.filter(teacher => teacher.surname.includes(searchCriteria.surname)).map(teacher => <Teacher*/}
             {/*    teacher={teacher}/>)}*/}
 
-            {teachers.filter(teacher => teacher.surname.includes(searchCriteria.surname) &&
-                teacher.firstname.includes(searchCriteria.firstname)     &&
-                teacher.shortName.includes(searchCriteria.shortName)     &&
-                teacher.sex.includes(searchCriteria.sex))
-                .map(teacher => <Teacher edit={props.edit} teacher={teacher}/>)}
+            {teachers.filter(teacher => teacher.surname.includes(searchCriteria.surname)         &&
+                                        teacher.firstname.includes(searchCriteria.firstname)     &&
+                                        teacher.shortName.includes(searchCriteria.shortName)     &&
+                                        teacher.sex.includes(searchCriteria.sex))
+                //.sort((teacher1,teacher2) => Misc.sortByString(teacher1.surname, teacher2.surname))
+                .map((teacher, index) => (<Teacher key = {teacher.teacherId}
+                                                index = {index}
+                                                teacher = {teacher}
+                                                delete = {props.delete}
+                                                 edit={props.edit} />))}
 
         </>
     )

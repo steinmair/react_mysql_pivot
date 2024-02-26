@@ -15,7 +15,7 @@ const Teacher = (props) => {
                 <Col>{teacher.sex}</Col>
                 <Col className="mb-1">
                     <Button variant={"success"} className="me-1"  onClick={() => props.edit(teacher.teacherId)} >Edit</Button>
-                    <Button variant={"danger"}>Delete</Button></Col>
+                    <Button variant={"danger"} className="me-1"  onClick={() => props.delete(teacher.teacherId)} >Delete</Button></Col>
 
             </Row>
 
