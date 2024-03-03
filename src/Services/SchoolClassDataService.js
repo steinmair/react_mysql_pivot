@@ -1,6 +1,6 @@
 import http from "../Services/http-common"
 
-const ROOT = "schoolClasses";
+const ROOT = "schoolClasses?include=teacher,department";
 
 const getAll = ()     => { return http.get(`${ROOT}`); };
 const get    = (id)   => { return http.get(`${ROOT}/${id}`); };
