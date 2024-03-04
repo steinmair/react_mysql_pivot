@@ -5,10 +5,8 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import SchoolClassDataService from "../Services/SchoolClassDataService";
 import SchoolClassList from "./SchoolClassList";
 import SchoolClassSingle from "./SchoolClassSingle";
-
-
-
-
+import {useParams} from "react-router-dom";
+import DepartmentDataService from "../Services/DepartmentDataService";
 
 
 const SchoolClassesList = () => {
@@ -21,6 +19,8 @@ const SchoolClassesList = () => {
     const [currentSchoolClass, setCurrentSchoolClass] = useState({});
     const [crudState, setCrudState] = useState({state: Misc.LoadCrudState.Blank, message: ''});
 
+
+    const {departmentId} = useParams();
     //Business Logic
     //lade die Liste der SchoolClass
     //fetch von React oder Methoden von Axios
@@ -28,24 +28,30 @@ const SchoolClassesList = () => {
 
     useEffect(() => {
         //load - lade die Liste der SchoolClass
-        load();
+        load(departmentId);
 
-    }, []);
+    }, [departmentId]);
 
-    const load = async () => {
-
-        SchoolClassDataService.getAll()
-            .then(response => {
+    const load = async (departmentId) => {
+        try {
+            if (departmentId) {
+                const response = await DepartmentDataService.schoolClasses(departmentId);
                 setSchoolClasses(response.data);
-                setLoadState({state: Misc.LoadState.Show});
-            })
-            .catch(error => setLoadState({
-                state: Misc.LoadState.Error,
-                error: error.message}))
-    };
+                console.log(response.data);
+            } else {
+                const response = await SchoolClassDataService.getAll();
+                setSchoolClasses(response.data);
+                console.log(response.data);
+            }
+            setLoadState({state: Misc.LoadState.Show});
+        } catch (e) {
+            setLoadState({state: Misc.LoadState.Error, error: e.message});
+        }
+        ;
+    }
 
 
-    const add = () =>{
+    const add = () => {
         if (mode === Misc.LoadCrudState.Blank)
             setMode(Misc.LoadCrudState.Add);
         else
@@ -75,9 +81,9 @@ const SchoolClassesList = () => {
                 const schoolClassNew = response.data;
                 setSchoolClasses(schoolClasses.map(s => (s.schoolClassId === schoolClassNew.schoolClassId ? schoolClassNew : s)));
             }
-            setCrudState({ state: Misc.LoadCrudState.Success, message: Misc.getTimeMessage("Successfully saved") });
+            setCrudState({state: Misc.LoadCrudState.Success, message: Misc.getTimeMessage("Successfully saved")});
         } catch (e) {
-            setCrudState({ state: Misc.LoadCrudState.Error, message: e.response.data });
+            setCrudState({state: Misc.LoadCrudState.Error, message: e.response.data});
         }
     }
 
@@ -89,7 +95,7 @@ const SchoolClassesList = () => {
             setMode(Misc.cBlank);
             setCrudState({state: Misc.LoadCrudState.Delete, message: Misc.getTimeMessage("Successfully deleted")});
         } catch (e) {
-            setCrudState({state: Misc.LoadCrudState.Error,message: e.response.data});
+            setCrudState({state: Misc.LoadCrudState.Error, message: e.response.data});
         }
     }
 
@@ -100,45 +106,47 @@ const SchoolClassesList = () => {
             {loadState.state === Misc.LoadState.Load && <Misc.Loading page="SchoolClass"/>}
             {loadState.state === Misc.LoadState.Error && <Misc.Error message={loadState.error}/>}
             {loadState.state === Misc.LoadState.Show &&
-            <Container fluid>
-                <Row className="mt-3">
-                    <Col lg="1">
-                        <Button size="sm-1" variant="success" onClick={add} active>
-                            Add
-                        </Button>
-                    </Col>
-                </Row>
-                <Row className="mt-3">
-                    <Col>
-                        <h3>Schulklassen</h3>
-                    </Col>
-                </Row>
-                <hr/>
-                <Row>
-                    <Col>
-                        Anzahl der Schulklassen: {schoolClasses.length}
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <SchoolClassList schoolClasses={schoolClasses}
-                                         edit={edit}
-                                         delete={deleteF}/>
-                    </Col>
-                </Row>
-                <Row className= "mt-3">
-                    <Col className= {crudState.state === Misc.LoadCrudState.Error ? 'text-bg-danger' : 'text-bg-success'}>
-                        <h4>{crudState.message}</h4>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        {mode===Misc.LoadCrudState.Blank &&<></>}
-                        {mode===Misc.LoadCrudState.Add && <SchoolClassSingle save={save}/>}
-                        {mode===Misc.LoadCrudState.Edit && <SchoolClassSingle save={save} schoolClass={currentSchoolClass}/>}
-                    </Col>
-                </Row>
-            </Container>}
+                <Container fluid>
+                    <Row className="mt-3">
+                        <Col lg="1">
+                            <Button size="sm-1" variant="success" onClick={add} active>
+                                Add
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col>
+                            <h3>Schulklassen</h3>
+                        </Col>
+                    </Row>
+                    <hr/>
+                    <Row>
+                        <Col>
+                            Anzahl der Schulklassen: {schoolClasses.length}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <SchoolClassList schoolClasses={schoolClasses}
+                                             edit={edit}
+                                             delete={deleteF}/>
+                        </Col>
+                    </Row>
+                    <Row className="mt-3">
+                        <Col
+                            className={crudState.state === Misc.LoadCrudState.Error ? 'text-bg-danger' : 'text-bg-success'}>
+                            <h4>{crudState.message}</h4>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {mode === Misc.LoadCrudState.Blank && <></>}
+                            {mode === Misc.LoadCrudState.Add && <SchoolClassSingle save={save}/>}
+                            {mode === Misc.LoadCrudState.Edit &&
+                                <SchoolClassSingle save={save} schoolClass={currentSchoolClass}/>}
+                        </Col>
+                    </Row>
+                </Container>}
         </>
     );
 }

@@ -15,13 +15,13 @@ const SchoolClassSingle = (props) => {
 
 
     const initialSchoolClassState = {
-        teacherId: '',
-        surname: 'AAA',
-        firstname: 'AAA',
-        shortName: 'AW',
-        sex: 'm',
-        email: '',
-        phone: ''
+        schoolClassId: '',
+        name: 'AAA',
+        level: 'AAA',
+        department: 'AW',
+        description: 'm',
+        teacher: ''
+
     };
 
     const [schoolClass, setSchoolClass] = useState(initialSchoolClassState);
