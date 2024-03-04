@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import TeacherMain from "./Teacher/TeacherMain";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SchoolClassMain from "./SchoolClass/SchoolClassMain";
+import AppSchool from "./AppsSchool/AppSchool";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,7 @@ root.render(
   //  <TeacherMain/>
   // </React.StrictMode>
 
-    <SchoolClassMain/>
+    <AppSchool/>
 );
 
 // If you want to start measuring performance in your app, pass a function
