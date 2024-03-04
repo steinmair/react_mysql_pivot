@@ -22,7 +22,7 @@ const SchoolClassList = (props) => {
             <Row className="mb-3">
                 <Col></Col>
                 <Col>
-                    <Form.Control type="text" placeholder="Enter search criteria" name="name"
+                    <Form.Control type="text" placeholder="Enter Name" name="name"
                                   value={searchCriteria.name} onChange={updateFilter} size="sm">
                     </Form.Control>
                 </Col>

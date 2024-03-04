@@ -7,9 +7,11 @@ import SchoolClassList from "./SchoolClassList";
 import SchoolClassSingle from "./SchoolClassSingle";
 import {useParams} from "react-router-dom";
 import DepartmentDataService from "../Services/DepartmentDataService";
+import {AxiosHeaders as props} from "axios";
+import TeacherDataService from "../Services/TeacherDataService";
 
 
-const SchoolClassesList = () => {
+const SchoolClassesList = (props) => {
 
     //Zustände
     const [loadState, setLoadState] = useState({state: Misc.LoadState.Load, error: null});
@@ -20,7 +22,8 @@ const SchoolClassesList = () => {
     const [crudState, setCrudState] = useState({state: Misc.LoadCrudState.Blank, message: ''});
 
 
-    const {departmentId} = useParams();
+    const {id} = useParams();
+    const from = props.from;
     //Business Logic
     //lade die Liste der SchoolClass
     //fetch von React oder Methoden von Axios
@@ -28,16 +31,24 @@ const SchoolClassesList = () => {
 
     useEffect(() => {
         //load - lade die Liste der SchoolClass
-        load(departmentId);
+        load(id);
 
-    }, [departmentId]);
+    }, [id]);
 
-    const load = async (departmentId) => {
+    const load = async (id) => {
         try {
-            if (departmentId) {
-                const response = await DepartmentDataService.schoolClasses(departmentId);
+            console.log(id);
+            if (id) {
+                console.log(from);
+                if (from == "department"){
+                const response = await DepartmentDataService.schoolClasses(id);
                 setSchoolClasses(response.data);
                 console.log(response.data);
+                }else {
+                    const response = await TeacherDataService.schoolClasses(id);
+                setSchoolClasses(response.data);
+                console.log(response.data);
+                }
             } else {
                 const response = await SchoolClassDataService.getAll();
                 setSchoolClasses(response.data);

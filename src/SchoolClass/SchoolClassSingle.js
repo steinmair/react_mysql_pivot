@@ -17,10 +17,11 @@ const SchoolClassSingle = (props) => {
     const initialSchoolClassState = {
         schoolClassId: '',
         name: 'AAA',
+        head:{teacherId:''},
         level: 'AAA',
         department: 'AW',
         description: 'm',
-        teacher: ''
+
 
     };
 
@@ -72,7 +73,7 @@ const SchoolClassSingle = (props) => {
                 <Form.Label htmlFor="department">Department</Form.Label>
             </Col>
             <Col sm="4">
-                <Form.Control type="text" placeholder="Enter Department" name="department" value={schoolClass.department && schoolClass.department.nameShort}
+                <Form.Control type="text" placeholder="Enter Department" name="department" value={schoolClass.department.nameShort}
                               onChange={update}/>
             </Col>
 

@@ -42,7 +42,7 @@ const TeacherSingle = (props) => {
             </Row>
             <Row className="mb-2">
                 <Col sm="2">
-                    <Form.Label htmlFor="teracherId">TeacherId</Form.Label>
+                    <Form.Label htmlFor="teacherId">TeacherId</Form.Label>
                 </Col>
                 <Col sm="2">
                     <Form.Control type="number" name="teacherId" value={teacher.teacherId} readOnly disabled

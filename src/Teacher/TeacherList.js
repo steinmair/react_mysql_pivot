@@ -21,22 +21,22 @@ const TeacherList = (props) => {
             <Row className="mb-3">
                 <Col></Col>
                 <Col>
-                    <Form.Control type="text" placeholder="Enter search criteria" name="surname"
+                    <Form.Control type="text" placeholder="Enter Surname" name="surname"
                                   value={searchCriteria.surname} onChange={updateFilter} size="sm">
                     </Form.Control>
                 </Col>
                 <Col>
-                    <Form.Control type="text" placeholder="Enter search criteria" name="firstname"
+                    <Form.Control type="text" placeholder="Enter Firstname" name="firstname"
                                   value={searchCriteria.firstname} onChange={updateFilter} size="sm">
                     </Form.Control>
                 </Col>
                 <Col>
-                    <Form.Control type="text" placeholder="Enter search criteria" name="shortName"
+                    <Form.Control type="text" placeholder="Enter shortName" name="shortName"
                                   value={searchCriteria.shortName} onChange={updateFilter} size="sm">
                     </Form.Control>
                 </Col>
                 <Col>
-                    <Form.Control type="text" placeholder="Enter search criteria" name="sex"
+                    <Form.Control type="text" placeholder="Enter Sex" name="sex"
                                   value={searchCriteria.sex} onChange={updateFilter} size="sm">
                     </Form.Control>
                 </Col>

@@ -10,7 +10,6 @@ const Main = () => {
                   <ul>
                       <li><Link to="/teachers">teachers</Link></li>
                       <li><Link to="/schoolClasses">schoolClasses</Link></li>
-                      <li><Link to="/departments/1/schoolClasses">Schulklassen der BG</Link></li>
                   </ul>
               </Col>
           </Row>

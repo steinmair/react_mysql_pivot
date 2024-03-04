@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Col, Row} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 const Teacher = (props) => {
     const teacher = props.teacher;
@@ -17,6 +18,13 @@ const Teacher = (props) => {
                     <Button variant={"success"} className="me-1"  onClick={() => props.edit(teacher.teacherId)} >Edit</Button>
                     <Button variant={"danger"} className="me-1"  onClick={() => props.delete(teacher.teacherId)} >Delete</Button></Col>
 
+                <Col>
+                    <Link to={`/teachers/${teacher.teacherId}/schoolClasses`}>
+                        <Button size="sm" variant="primary">
+                            Klassen
+                        </Button>
+                    </Link>
+                </Col>
             </Row>
 
         </>
