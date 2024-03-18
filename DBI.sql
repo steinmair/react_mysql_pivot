@@ -1,5 +1,24 @@
 use school;
 
+    -- MATURA
+
+    -- DBI 50%: 2,5 Stunden
+    -- SQL QUERY /join/ group-by/ subquery 14/50 Punkte
+    -- ER SCHEMA / text to ER ( entität-relationen modell )  / ER to relationen schema tabelle
+    -- Normalisierung
+    -- Fragen Transaktionen / Constraints / Isolationsgrade / Lockings
+
+    -- POS 50%:
+    -- MVC 80%
+    -- Master Detail
+    -- Single
+    -- Controller
+    -- Instanzmethoden
+    -- Layout / visualisierung
+    -- Tuning 20% / Entity
+    -- Fragen
+    -- REST 20%
+
 -- Zeil
 -- Zwischensumme pro schulklasse
 -- Zwischensumme pro Abteilung
@@ -83,3 +102,21 @@ FROM STUDENT,
 WHERE STUDENT.SCHOOLCLASS_ID = SCHOOLCLASS.SCHOOLCLASS_ID
 GROUP BY SCHOOLCLASS.DEPARTMENT_ID,STUDENT.SCHOOLCLASS_ID,SCHOOLCLASS.NAME
 ORDER BY SCHOOLCLASS.DEPARTMENT_ID,SCHOOLCLASS.NAME;
+
+SELECT SCHOOLCLASS.DEPARTMENT_ID,
+    STUDENT.SCHOOLCLASS_ID,SCHOOLCLASS.NAME NAME_SC,
+    COUNT(*) CNT,
+    LEAD(COUNT(*)) over (PARTITION BY DEPARTMENT_ID ORDER BY COUNT(*)) LEAD1,
+    (LEAD(COUNT(*)) over (PARTITION BY DEPARTMENT_ID ORDER BY COUNT(*)) / COUNT(*)-1) * 100 PERCENT3,
+    LAG(COUNT(*)) over (PARTITION BY DEPARTMENT_ID ORDER BY COUNT(*)) LAG1,
+    RANK() over (PARTITION BY DEPARTMENT_ID ORDER BY COUNT(*)) Ranking1,
+    SUM(COUNT(*)) OVER (PARTITION BY DEPARTMENT_ID) SUM,
+    100 * COUNT(*) / (SUM(COUNT(*)) OVER (PARTITION BY DEPARTMENT_ID)) PERCENT1, -- pro department
+    100 * COUNT(*) / (SUM(COUNT(*)) OVER ()) PERCENT2, -- gesamtanzahl OVER leer
+    MIN(COUNT(*)) OVER (PARTITION BY DEPARTMENT_ID) MIN,
+    MAX(COUNT(*)) OVER (PARTITION BY DEPARTMENT_ID) MAX
+FROM STUDENT,
+     SCHOOLCLASS
+WHERE STUDENT.SCHOOLCLASS_ID = SCHOOLCLASS.SCHOOLCLASS_ID
+GROUP BY SCHOOLCLASS.DEPARTMENT_ID,STUDENT.SCHOOLCLASS_ID,SCHOOLCLASS.NAME
+ORDER BY SCHOOLCLASS.DEPARTMENT_ID,COUNT(*); -- SCHOOLCLASS.NAME;
