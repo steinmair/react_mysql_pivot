@@ -25,6 +25,13 @@ const SchoolClass = (props) => {
                         </Button>
                     </Link>
                 </Col>
+                <Col>
+                    <Link to={`/schoolClasses/${schoolClass.schoolClassId}/events`}>
+                        <Button size="sm" variant="primary">
+                            Events
+                        </Button>
+                    </Link>
+                </Col>
             </Row>
 
         </>

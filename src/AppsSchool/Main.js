@@ -10,6 +10,7 @@ const Main = () => {
                   <ul>
                       <li><Link to="/teachers">teachers</Link></li>
                       <li><Link to="/schoolClasses">schoolClasses</Link></li>
+                      <li><Link to="/events">events</Link></li>
                   </ul>
               </Col>
           </Row>
