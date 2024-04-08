@@ -23,8 +23,8 @@ const EventsList = (props) => {
     const [crudState, setCrudState] = useState({state: Misc.LoadCrudState.Blank, message: ''});
 
 
-    const {id} = useParams();
-    const from = props.from;
+    //const {id} = useParams();
+    //const from = props.from;
     //Business Logic
     //lade die Liste der SchoolClass
     //fetch von React oder Methoden von Axios
@@ -32,9 +32,9 @@ const EventsList = (props) => {
 
     useEffect(() => {
         //load - lade die Liste der SchoolClass
-        load(id);
+        load();
 
-    }, [id]);
+    }, []);
 
     const load = async () => {
 

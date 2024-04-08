@@ -55,27 +55,35 @@ const EventSingle = (props) => {
             </Row>
             <Row className="mb-2">
                 <Col sm="2">
-                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Form.Label htmlFor="text">Destination</Form.Label>
                 </Col>
                 <Col sm="4">
-                    <Form.Control type="text" placeholder="Enter Name" name="name" value={schoolClass.name}
+                    <Form.Control type="text" placeholder="Enter Destination" name="destination" value={event.destination}
                                   onChange={update}/>
                 </Col>
 
                 <Col sm="2">
-                    <Form.Label htmlFor="level">Level</Form.Label>
+                    <Form.Label htmlFor="dateFrom">Date From</Form.Label>
                 </Col>
                 <Col sm="4">
-                    <Form.Control type="text" placeholder="Enter Level" name="level" value={schoolClass.level}
+                    <Form.Control type="text" placeholder="Enter Date From" name="dateFrom" value={event.dateFrom}
+                                  onChange={update}/>
+                </Col>
+
+                <Col sm="2">
+                    <Form.Label htmlFor="dateTo">Date To</Form.Label>
+                </Col>
+                <Col sm="4">
+                    <Form.Control type="text" placeholder="Enter Date To" name="dateTo" value={event.dateTo}
                                   onChange={update}/>
                 </Col>
             </Row>
             <Row className="mb-2">
             <Col sm="2">
-                <Form.Label htmlFor="department">Department</Form.Label>
+                <Form.Label htmlFor="department">SchoolClass</Form.Label>
             </Col>
             <Col sm="4">
-                <Form.Control type="text" placeholder="Enter Department" name="department" value={schoolClass.department.nameShort}
+                <Form.Control type="text" placeholder="Enter SchoolClass" name="schoolClass" value={event.schoolClass}
                               onChange={update}/>
             </Col>
 
@@ -83,16 +91,7 @@ const EventSingle = (props) => {
                     <Form.Label htmlFor="description">Description</Form.Label>
                 </Col>
                 <Col sm="4">
-                    <Form.Control type="text" placeholder="Enter Description" name="description" value={schoolClass.description}
-                                  onChange={update}/>
-                </Col>
-            </Row>
-            <Row className="mb-2">
-                <Col sm="2">
-                    <Form.Label htmlFor="teacher">Teacher</Form.Label>
-                </Col>
-                <Col sm="4">
-                    <Form.Control type="text" placeholder="Enter Teacher" name="teacher" value={schoolClass.teacherId}
+                    <Form.Control type="text" placeholder="Enter Description" name="description" value={event.description}
                                   onChange={update}/>
                 </Col>
             </Row>

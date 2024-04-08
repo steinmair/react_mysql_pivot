@@ -16,14 +16,6 @@ const Event = (props) => {
                 <Col className="mb-1">
                     <Button variant={"success"} className="me-1"  onClick={() => props.edit(event.eventId)} >Edit</Button>
                     <Button variant={"danger"} className="me-1"  onClick={() => props.delete(event.eventId)} >Delete</Button></Col>
-
-                <Col>
-                    <Link to={`/schoolClasses/${schoolClass.schoolClassId}/students`}>
-                        <Button size="sm" variant="primary">
-                            Schüler/innen
-                        </Button>
-                    </Link>
-                </Col>
             </Row>
 
         </>

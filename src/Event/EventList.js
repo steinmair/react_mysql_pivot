@@ -6,7 +6,7 @@ import Event from "./Event";
 const EventList = (props) => {
     const events = props.events;
     const [searchCriteria, setSearchCriteria] =
-        useState({eventId: "", createdBy: "", dateCreated:"", schoolClassId: "", dateFrom: "", dateTo:"", destination:"", description:""});
+        useState({eventId: "", createdBy: "", dateCreated:"", schoolClass: "", dateFrom: "", dateTo:"", destination:"", description:""});
 
     const updateFilter = (event) => {
         const {name, value} = event.target;
@@ -33,7 +33,7 @@ const EventList = (props) => {
                 <Col>EventId</Col>
                 <Col>CreatedBy</Col>
                 <Col>DateCreated</Col>
-                <Col>SchoolClassId</Col>
+                <Col>SchoolClass</Col>
                 <Col>DateFrom</Col>
                 <Col>DateTo</Col>
                 <Col>Destination</Col>
