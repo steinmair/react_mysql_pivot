@@ -9,6 +9,7 @@ import {useParams} from "react-router-dom";
 import SchoolClassDataService from "../Services/SchoolClassDataService";
 import {AxiosHeaders as props} from "axios";
 import TeacherDataService from "../Services/TeacherDataService";
+import DepartmentDataService from "../Services/DepartmentDataService";
 
 
 
@@ -21,7 +22,7 @@ const EventsList = (props) => {
     const [mode, setMode] = useState(Misc.cBlank);
     const [currentEvent, setCurrentEvent] = useState({});
     const [crudState, setCrudState] = useState({state: Misc.LoadCrudState.Blank, message: ''});
-
+    const {id} = useParams();
 
     //const {id} = useParams();
     //const from = props.from;
@@ -30,23 +31,25 @@ const EventsList = (props) => {
     //fetch von React oder Methoden von Axios
     //Haupt(problem): Datenzugriff asynchron
 
+
     useEffect(() => {
         //load - lade die Liste der SchoolClass
-        load();
+        load(id);
 
-    }, []);
+    }, [id]);
 
-    const load = async () => {
-
-        EventDataService.getAll()
-            .then(response => {
-                setEvents(response.data);
-                setLoadState({state: Misc.LoadState.Show});
-            })
-            .catch(error => setLoadState({
-                state: Misc.LoadState.Error,
-                error: error.message}))
-    };
+    const load = async (id) => {
+        try {
+            console.log(id);
+            const response = await SchoolClassDataService.events(id);
+            setEvents(response.data);
+            console.log(response.data);
+            setLoadState({state: Misc.LoadState.Show});
+        } catch (e) {
+            setLoadState({state: Misc.LoadState.Error, error: e.message});
+        }
+        ;
+    }
 
 
     const add = () => {

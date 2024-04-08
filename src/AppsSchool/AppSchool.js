@@ -17,7 +17,9 @@ const AppSchool = () => {
                   <Route path="/events" element={<EventMain />}/>
 
                   <Route path="/departments/:id/schoolClasses" element={<SchoolClassMain from='department'/>}/>
+                  <Route path="/departments/:id/schoolClasses" element={<SchoolClassMain from='department'/>}/>
                   <Route path="/teachers/:id/schoolClasses" element={<SchoolClassMain from='teacher'/>}/>
+                  <Route path="/schoolClasses/:id/events" element={<EventMain />}/>
               </Routes>
           </BrowserRouter>
       </>

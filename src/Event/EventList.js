@@ -6,7 +6,7 @@ import Event from "./Event";
 const EventList = (props) => {
     const events = props.events;
     const [searchCriteria, setSearchCriteria] =
-        useState({eventId: "", createdBy: "", dateCreated:"", schoolClass: "", dateFrom: "", dateTo:"", destination:"", description:""});
+        useState({eventId: "", schoolClass: "", dateFrom: "", dateTo:"", destination:"", description:""});
 
     const updateFilter = (event) => {
         const {name, value} = event.target;
@@ -21,9 +21,9 @@ const EventList = (props) => {
         <>
             <Row className="mb-3">
                 <Col></Col>
-                <Col>
-                    <Form.Control type="text" placeholder="Enter Name" name="name"
-                                  value={searchCriteria.name} onChange={updateFilter} size="sm">
+                /<Col>
+                    <Form.Control type="text" placeholder="Enter Destination" name="name"
+                                  value={searchCriteria.destination} onChange={updateFilter} size="sm">
                     </Form.Control>
                 </Col>
                 <Col></Col>
@@ -31,8 +31,6 @@ const EventList = (props) => {
             <hr/>
             <Row className="mb-3">
                 <Col>EventId</Col>
-                <Col>CreatedBy</Col>
-                <Col>DateCreated</Col>
                 <Col>SchoolClass</Col>
                 <Col>DateFrom</Col>
                 <Col>DateTo</Col>
@@ -43,7 +41,7 @@ const EventList = (props) => {
 
 
             {events.filter(event =>
-                event.name.includes(searchCriteria.name)
+                event.name.includes(searchCriteria.destination)
                 )
                 .map((event, index) => (
                     <Event

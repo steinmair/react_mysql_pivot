@@ -18,7 +18,7 @@ const EventSingle = (props) => {
         eventId: '',
         createdBy: '',
         dateCreated:'',
-        schoolClassId: '',
+        head:{schoolClassId:''},
         dateFrom: '',
         dateTo:'',
         destination:'',
@@ -80,10 +80,10 @@ const EventSingle = (props) => {
             </Row>
             <Row className="mb-2">
             <Col sm="2">
-                <Form.Label htmlFor="department">SchoolClass</Form.Label>
+                <Form.Label htmlFor="schoolClass">SchoolClass</Form.Label>
             </Col>
             <Col sm="4">
-                <Form.Control type="text" placeholder="Enter SchoolClass" name="schoolClass" value={event.schoolClass}
+                <Form.Control type="text" placeholder="Enter SchoolClass" name="schoolClass" value={event.schoolClassId}
                               onChange={update}/>
             </Col>
 

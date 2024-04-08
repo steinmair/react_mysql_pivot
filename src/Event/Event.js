@@ -9,6 +9,7 @@ const Event = (props) => {
         <>
             <Row>
                 <Col>{event.eventId}</Col>
+                <Col>{event.schoolClassId}</Col>
                 <Col>{event.dateFrom}</Col>
                 <Col>{event.dateTo}</Col>
                 <Col>{event.destination}</Col>
