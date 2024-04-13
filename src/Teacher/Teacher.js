@@ -7,25 +7,25 @@ const Teacher = (props) => {
 
     return(
         <>
-            <Row>
-                <Col>{teacher.teacherId}</Col>
+        <Row>
+            <Col>{teacher.teacherId}</Col>
 
-                <Col>{teacher.surname}</Col>
-                <Col>{teacher.firstname}</Col>
-                <Col>{teacher.shortName}</Col>
-                <Col>{teacher.sex}</Col>
-                <Col className="mb-1">
-                    <Button variant={"success"} className="me-1"  onClick={() => props.edit(teacher.teacherId)} >Edit</Button>
-                    <Button variant={"danger"} className="me-1"  onClick={() => props.delete(teacher.teacherId)} >Delete</Button></Col>
-
-                <Col>
-                    <Link to={`/teachers/${teacher.teacherId}/schoolClasses`}>
-                        <Button size="sm" variant="primary">
-                            Klassen
-                        </Button>
-                    </Link>
-                </Col>
-            </Row>
+            <Col>{teacher.surname}</Col>
+            <Col>{teacher.firstname}</Col>
+            <Col>{teacher.shortName}</Col>
+            <Col>{teacher.sex}</Col>
+            <Col className="mb-1">
+                <Button variant={"success"} className="me-1" onClick={() => props.edit(teacher.teacherId)} active>Edit
+                </Button>
+                &nbsp;
+                <Button variant={"danger"} onClick={() => props.delete(teacher.teacherId)}>Delete</Button>
+            </Col>
+            <Col className="mb-1">
+                <Link to={`/teachers/${teacher.teacherId}/schoolClasses`}>
+                    <Button size="sm" variant="primary"> Schulklassen</Button>
+                </Link>
+            </Col>
+        </Row>
 
         </>
     )

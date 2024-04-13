@@ -1,6 +1,6 @@
 // use state mit [] Klammern => Array oder Liste
 // use state mit {} Klammern => Objekt (zB json)
-// Daten müssen in states gespeichert werden (wie z.B Liste der Teacher)
+// Daten müssen in states gespeichert werden (wie z.B Liste der SchoolClass)
 // wir manipulieren diesen state und diese werden dann angezeigt
 // Mit einem HOOK können wir Änderungen mitloggen
 

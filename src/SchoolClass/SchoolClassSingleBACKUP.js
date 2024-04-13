@@ -21,21 +21,21 @@ const SchoolClassSingle = (props) => {
     }
 
     useEffect(() => {
-        Misc.showLog("SchoolClassSingle -> useEffect: (props)");
-        Misc.showLog(props.schoolClass);
+            Misc.showLog("SchoolClassSingle -> useEffect: (props)");
+            Misc.showLog(props.schoolClass);
 
-        if (props.schoolClass)
-            setSchoolClass(props.schoolClass);
+            if (props.schoolClass)
+                setSchoolClass(props.schoolClass);
 
     }, [props]);
 
     return (
         <Container fluid>
-            <Row className="bg-secondary">
-                <Col sm="12">
+        <Row className="bg-secondary">
+            <Col sm="12">
                     <h3></h3>
                 </Col>
-            </Row>
+        </Row>
             <Row>
                 <Col sm="12">
                     <h3>Stammdaten</h3>
@@ -51,7 +51,7 @@ const SchoolClassSingle = (props) => {
             </Row>
 
             <Row>
-                <Col sm="2">
+                 <Col sm="2">
                     <Form.Label htmlFor="name">Name</Form.Label>
                 </Col>
                 <Col sm="2">
@@ -69,7 +69,7 @@ const SchoolClassSingle = (props) => {
                     <Form.Label htmlFor="department">Department</Form.Label>
                 </Col>
                 <Col sm="2">
-                    <Form.Control type="text" placeholder="Enter department" name="department" value={schoolClass.departmentId} onChange={update}/>
+                    <Form.Control type="text" placeholder="Enter department" name="department" value={schoolClass.department} onChange={update}/>
                 </Col>
                 <Col sm="2">
                     <Form.Label htmlFor="description">Description</Form.Label>

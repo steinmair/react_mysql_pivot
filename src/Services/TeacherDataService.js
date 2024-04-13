@@ -8,9 +8,10 @@ const create = (data) => { return http.post(`${ROOT}`, data); };
 const update = (data) => { return http.put(`${ROOT}`, data); };
 const remove = (id)   => { return http.delete(`${ROOT}/${id}`); };          // Achtung: dieses spezielle Hochkomma muss verwendet werden!
 
-const schoolClasses = (teacherId)=>{
-    return http.get(`${ROOT}/${teacherId}/schoolClasses`)
+const schoolClasses = (teacherId) =>{
+    return http.get(`${ROOT}/${teacherId}/schoolclasses`);
 };
+
 const exportedObject = {
     getAll, get, create, update, remove,schoolClasses
 };

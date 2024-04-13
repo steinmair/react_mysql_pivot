@@ -16,7 +16,7 @@ const inc = () =>
     console.log("inc2");
     setCounter(counter + 1);
 }
-    // Daten müssen in states gespeichert werden (wie z.B Liste der Teacher)
+    // Daten müssen in states gespeichert werden (wie z.B Liste der SchoolClass)
     // wir manipulieren diesen state und diese werden dann angezeigt
 
     // Mit einem HOOK können wir Änderungen mitloggen
