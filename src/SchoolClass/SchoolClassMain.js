@@ -7,8 +7,9 @@ import SchoolClassList from "./SchoolClassList";
 import SchoolClassSingle from "./SchoolClassSingle";
 import {useParams} from "react-router-dom";
 import DataService from "../Services/DataService";
+import schoolClass from "./SchoolClass";
 
-const SchoolClassesList = () => {
+const SchoolClassMain = () => {
 
     //Zustände
     const [loadState, setLoadState] = useState({state: Misc.LoadState.Load, error: null});
@@ -31,51 +32,52 @@ const SchoolClassesList = () => {
 
     useEffect(() => {
         //load - lade die Liste der SchoolClass
-        load();
-        loadSchoolClasses(master,detailId);
-        loadTeachers();
-        loadDepartments();
+        load(master,detailId);
+        //loadSchoolClasses(detailId);
+        loadTeachers(detailId);
+        loadDepartments(detailId);
     }, []);
 
     const save = async (schoolClass) => {
-        let response;
-        console.log("Save Schoolclass")
-        setCrudState({state: Misc.LoadCrudState.Delete, message: Misc.getTimeMessage("Successfully stored")});
-        if (schoolClass.schoolClassId === '') {
-            // insert (create)
-            try {
+        try {
+            let response;
+            console.log("Save Schoolclass");
+
+            if (schoolClass.schoolClassId === '') {
+                // insert (create)
                 console.log("insert");
                 console.log(schoolClass);
-                response = await DataService.create("schoolclasses",schoolClass);
-                const schoolClassNew = response.data;
-                console.log("Response: ", schoolClassNew);
-                setSchoolClass([...schoolClass, schoolClassNew]);     // das teacher Array wird durch den Spread Operator (...) in einzelne SchoolClass-Objekte aufgespalten
-                setCrudState({state: Misc.LoadCrudState.Add, message: Misc.getTimeMessage("Successfully")});
-                loadSchoolClasses();
-            } catch (e) {
-                console.log(e.message);
+                response = await DataService.create("schoolclasses", schoolClass);
+            } else {
+                // update
+                console.log("update");
+                response = await DataService.update("schoolclasses", schoolClass);
             }
-        } else {
-            // update
-            console.log("update");
-            response = await DataService.update("schoolclasses",schoolClass);
-            const schoolClassNew = response.data;
-            setSchoolClass(schoolClass.map(s => s.schoolClassId === schoolClass.schoolClassId ? schoolClassNew : s));
-            loadSchoolClasses();
-        }
-    }
-    const load = async () => {
-        DataService.getAll("schoolclasses")
-            .then(response => {
-                setSchoolClass(response.data);
-                setLoadState({state: Misc.LoadState.Show});
-            })
-            .catch(error => setLoadState({
-                state: Misc.LoadState.Error,
-                error: error.message}))
-    };
 
-    const loadSchoolClasses = async (master,detailId) => {
+            const schoolClassNew = response.data;
+            console.log("Response: ", schoolClassNew);
+
+
+            if (schoolClass.schoolClassId === '') {
+
+                setSchoolClass([...schoolClass, schoolClassNew]);
+                setCrudState({ state: Misc.LoadCrudState.Add, message: Misc.getTimeMessage("Successfully") });
+            } else {
+
+                setSchoolClass(schoolClass.map(s => s.schoolClassId === schoolClass.schoolClassId ? schoolClassNew : s));
+            }
+
+
+        } catch (error) {
+            console.error("Error while saving:", error);
+            let errorMessage = "Unknown error occurred";
+            if (error.response && error.response.data) {
+                errorMessage = error.response.data.message || error.response.data.error || errorMessage;
+            }
+            setCrudState({ state: Misc.LoadCrudState.Error, message: errorMessage });
+        }
+    };
+    const load = async (master,detailId) => {
         try {
             if (detailId){
                 const response = await DataService.getMasterDetail(master,detailId,"schoolclasses");
@@ -91,7 +93,9 @@ const SchoolClassesList = () => {
             console.error(e);
             setLoadState({state: Misc.LoadState.Error, error: e.message})
         }
+
     };
+
 
     const loadTeachers = async () => {
         DataService.getAll("teachers")
@@ -124,11 +128,20 @@ const SchoolClassesList = () => {
     }
 
     const edit = (schoolClassId) => {
-         setCrudState({state: Misc.LoadCrudState.Blank, message: ""});
-        console.log("SchoolClass ID: " + schoolClassId);
-        let schoolClass = schoolClass.find(s => s.schoolClassId === schoolClassId);
-        setCurrentSchoolClass(schoolClass);
-        setMode(Misc.LoadCrudState.Edit);
+
+        let schoolClasse = schoolClass.find(a => a.schoolClassId === schoolClassId);
+        setCrudState({state: Misc.LoadCrudState.Delete, message: ""});
+        setCurrentSchoolClass(schoolClasse);
+        console.log("CurrentSchoolClass:     ", schoolClasse);
+
+        console.log("MODUS: ",mode);
+        if (mode === Misc.LoadCrudState.Blank) {
+            setMode(Misc.LoadCrudState.Edit);
+            console.log("EventId im Modus EDIT: ", schoolClassId);
+        }
+        else
+            setMode(Misc.LoadCrudState.Blank);
+        console.log("SchoolClassId: ", schoolClassId)
     }
 
     const deleteF = async (schoolClassId)=>{
@@ -151,7 +164,7 @@ const SchoolClassesList = () => {
             <Container fluid>
                 <Row>
                     <Col lg="11">
-                        <h3>Schoolclass ({schoolClass.length})</h3>
+                        <h3>SchoolClass ({schoolClass.length})</h3>
                     </Col>
                     <Col lg="1">
                         <Button size="sm" variant="success" onClick={add} active>
@@ -175,8 +188,14 @@ const SchoolClassesList = () => {
                 <Row>
                     <Col>
                          {mode === Misc.LoadCrudState.Blank && <></>}
-                         {mode === Misc.LoadCrudState.Add && <SchoolClassSingle save={save}/>}
-                         {mode === Misc.LoadCrudState.Edit && <SchoolClassSingle save={save} schoolClass={currentSchoolClass}/>}
+                         {mode === Misc.LoadCrudState.Add && <SchoolClassSingle save={save}
+                                                                                departments={departments}
+                                                                                teachers ={teachers}
+
+                         />}
+                         {mode === Misc.LoadCrudState.Edit && <SchoolClassSingle save={save} schoolClass={currentSchoolClass}
+                                                                                 departments={departments}
+                                                                                 teachers ={teachers}/>}
                     </Col>
                     <Col lg="12"></Col>
                 </Row>
@@ -185,5 +204,5 @@ const SchoolClassesList = () => {
         </>
     );
 }
-export default SchoolClassesList;
+export default SchoolClassMain;
 

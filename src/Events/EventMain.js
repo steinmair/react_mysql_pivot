@@ -160,7 +160,7 @@ const EventClassMain = () => {
             <Container fluid>
                 <Row>
                     <Col lg="11">
-                        {/*<h3>{masterObject ? `Students of: ${masterObject.name}` : 'Students'}</h3>*/}
+                        <h3>Events ({events.length})</h3>
                     </Col>
                     <Col lg="1">
                     <Button size="sm" variant="success" onClick={add} active>
