@@ -122,9 +122,17 @@ GROUP BY SCHOOLCLASS.DEPARTMENT_ID,STUDENT.SCHOOLCLASS_ID,SCHOOLCLASS.NAME
 ORDER BY SCHOOLCLASS.DEPARTMENT_ID,COUNT(*); -- SCHOOLCLASS.NAME;
 
 
-SELECT SCHOOLCLASS.NAME,TEACHER.SURNAME FROM SCHOOLCLASS,TEACHER WHERE SCHOOLCLASS.TEACHER_ID = TEACHER.TEACHER_ID;
+select SCHOOLCLASS.NAME, TEACHER.SURNAME
+from SCHOOLCLASS, TEACHER, DEPARTMENT
+where DEPARTMENT.TEACHER_ID = TEACHER.TEACHER_ID
+order by DEPARTMENT.DEPARTMENT_ID;
 
 
-    -- Tabelle SCHOOLCLASS.
-    -- Tabelle TEACHER -> nested-loop-Join -> SCHOOLCLASS.  SCHOOLCLASS.TEACHER_ID = TEACHER.TEACHER_ID.
-    -- Spalte NAME  table SCHOOLCLASS /  SURNAME table  TEACHER. 72 rows
+-- Indexe: Wenn die Tabellen SCHOOLCLASS, TEACHER und DEPARTMENT entsprechende Indexe auf den Spalten haben, die in den Join-Bedingungen und in der ORDER BY-Klausel verwendet werden, können diese Indexe effizient genutzt werden, um den Datenzugriff zu beschleunigen. Zum Beispiel könnten Indexe auf DEPARTMENT.TEACHER_ID, TEACHER.TEACHER_ID und DEPARTMENT.DEPARTMENT_ID hilfreich sein.
+
+-- Ausführungsplan: Ein Ausführungsplan zeigt den Optimierer des Datenbanksystems an, wie die Abfrage ausgeführt werden soll. Je nach Datenverteilung, Größe der Tabellen und vorhandenen Indexen kann der Ausführungsplan variieren. Ein typischer Ausführungsplan für diese Abfrage könnte sein:
+
+-- Einlesen der benötigten Daten aus den Tabellen DEPARTMENT und TEACHER unter Verwendung von Indexzugriffen auf DEPARTMENT.TEACHER_ID und TEACHER.TEACHER_ID.
+-- Ausführung des Joins zwischen DEPARTMENT und TEACHER basierend auf den Join-Bedingungen.
+-- Zusammenführen der Daten aus SCHOOLCLASS mit den bereits verbundenen Daten.
+-- Sortieren der Ergebnisse nach DEPARTMENT.DEPARTMENT_ID gemäß der ORDER BY-Klausel.
